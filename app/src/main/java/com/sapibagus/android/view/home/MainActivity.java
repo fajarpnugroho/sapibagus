@@ -1,4 +1,4 @@
-package com.sapibagus.android.view;
+package com.sapibagus.android.view.home;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.sapibagus.android.R;
+import com.sapibagus.android.view.BaseActivity;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
