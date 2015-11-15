@@ -32,6 +32,8 @@ android {
 
         buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
         buildConfigField "String", "BUILD_TIME", "\"${buildTime}\""
+
+        multiDexEnabled true
     }
 
     lintOptions {
@@ -86,4 +88,5 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.5.2@aar') {
         transitive = true;
     }
+    compile 'com.android.support:multidex:1.0.0'
 }

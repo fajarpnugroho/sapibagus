@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:padding="12dp">
+
+    <ImageView
+        android:id="@+id/thumbnail"
+        android:layout_width="125dp"
+        android:layout_height="107dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:contentDescription="@null"
+        android:visibility="gone"
+        tools:src="@android:drawable/zoom_plate" />
+
+    <com.sapibagus.android.view.home.widget.AuthorDateView
+        android:id="@+id/author_date_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/thumbnail"
+        android:layout_toRightOf="@id/thumbnail" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/author_date_view"
+        android:layout_toEndOf="@id/thumbnail"
+        android:layout_toRightOf="@id/thumbnail"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:textColor="@android:color/black"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        tools:text="PROMO JUAL PAKAN SAPI KONSENTRAT MURAH JAKARTA..." />
+
+    <com.sapibagus.android.view.home.widget.TagsView
+        android:id="@+id/tags_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>

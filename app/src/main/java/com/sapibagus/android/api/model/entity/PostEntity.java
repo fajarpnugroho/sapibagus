@@ -19,13 +19,13 @@ public final class PostEntity {
     public final AuthorEntity author;
     public final List<AttachmentEntity> attachments;
     public final int commentCount;
-    public final int commentStatus;
+    public final String commentStatus;
 
     public PostEntity(long id, String type, String slug, String url, String status, String title,
                       String titlePlain, String content, String excerpt, String date,
                       String modified, List<CategoryEntity> categories, List<TagEntity> tags,
                       AuthorEntity author, List<AttachmentEntity> attachments, int commentCount,
-                      int commentStatus) {
+                      String commentStatus) {
         this.id = id;
         this.type = type;
         this.slug = slug;

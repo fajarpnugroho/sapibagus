@@ -1,0 +1,45 @@
+{
+  "data" : [
+    {
+      "id": 0,
+      "slug": "sajian-utama",
+      "title": "Sajian Utama",
+      "description": "",
+      "parent": 0,
+      "post_count": 0
+    },
+    {
+      "id": 0,
+      "slug": "bisnis",
+      "title": "Bisnis",
+      "description": "",
+      "parent": 0,
+      "post_count": 0
+    },
+    {
+      "id": 0,
+      "slug": "event",
+      "title": "Event",
+      "description": "",
+      "parent": 0,
+      "post_count": 0
+    },
+    {
+      "id": 0,
+      "slug": "info-pasar",
+      "title": "Info",
+      "description": "",
+      "parent": 0,
+      "post_count": 0
+    },
+    {
+      "id": 0,
+      "slug": "belajar",
+      "title": "Belajar",
+      "description": "",
+      "parent": 0,
+      "post_count": 0
+    }
+
+  ]
+}

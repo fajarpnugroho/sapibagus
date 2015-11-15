@@ -2,31 +2,81 @@ package com.sapibagus.android.view.home;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
+import com.sapibagus.android.Injector;
 import com.sapibagus.android.R;
+import com.sapibagus.android.api.model.entity.CategoryEntity;
+import com.sapibagus.android.api.model.response.CategoriesResponse;
 import com.sapibagus.android.view.BaseActivity;
+import com.sapibagus.android.view.home.fragment.PostsFragment;
+import com.sapibagus.android.view.home.presenter.MainPresenter;
 
-public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+public class MainActivity extends BaseActivity implements MainView {
+
+    @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.sliding_tabs) TabLayout tabLayout;
+    @Bind(R.id.viewpager) ViewPager viewPager;
+    @Bind(R.id.fab) FloatingActionButton fab;
+
+    @Inject MainPresenter presenter;
+
+    private CategoriesResponse categoriesResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        Injector.INSTANCE.getApplicationComponent().inject(this);
+
+        setContentView(R.layout.activity_main);
+
+        ButterKnife.bind(this);
+
+        initToolbar();
+        initFAB();
+
+        presenter.initView(this);
+        presenter.getCategories();
+    }
+
+
+    @Override
+    public void initToolbar() {
+        setSupportActionBar(toolbar);
+    }
+
+    @Override
+    public void initPager() {
+        MainPagerAdapter pagerAdapter = new MainPagerAdapter(getSupportFragmentManager());
+
+        for (CategoryEntity categoryEntity : categoriesResponse.data) {
+            pagerAdapter.addFragment(PostsFragment.newInstance(categoryEntity.slug),
+                    categoryEntity.title);
+        }
+
+        viewPager.setOffscreenPageLimit(1);
+        viewPager.setAdapter(pagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
+    @Override
+    public void initFAB() {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -34,71 +84,37 @@ public class MainActivity extends BaseActivity
                         .setAction("Action", null).show();
             }
         });
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+    public void showCategories(CategoriesResponse response) {
+        this.categoriesResponse = response;
+        initPager();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+    private class MainPagerAdapter extends FragmentStatePagerAdapter {
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        private List<Fragment> fragments = new ArrayList<>();
+        private List<String> titles = new ArrayList<>();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        public MainPagerAdapter(FragmentManager fm) { super(fm); }
+
+        @Override
+        public Fragment getItem(int position) {
+            return fragments.get(position);
         }
 
-        return super.onOptionsItemSelected(item);
-    }
+        @Override
+        public int getCount() { return titles.size(); }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camara) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titles.get(position);
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+        public void addFragment(Fragment fragment, String title) {
+            titles.add(title);
+            fragments.add(fragment);
+        }
     }
 }

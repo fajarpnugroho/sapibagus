@@ -8,9 +8,9 @@ public final class AttachmentEntity {
     public final String description;
     public final String caption;
     public final long parent;
-    public final String mimyType;
+    public final String mimeType;
 
-    public AttachmentEntity(long id, String url, String slug, String title, String description, String caption, long parent, String mimyType) {
+    public AttachmentEntity(long id, String url, String slug, String title, String description, String caption, long parent, String mimeType) {
         this.id = id;
         this.url = url;
         this.slug = slug;
@@ -18,6 +18,6 @@ public final class AttachmentEntity {
         this.description = description;
         this.caption = caption;
         this.parent = parent;
-        this.mimyType = mimyType;
+        this.mimeType = mimeType;
     }
 }

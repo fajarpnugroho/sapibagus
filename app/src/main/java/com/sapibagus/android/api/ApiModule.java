@@ -1,5 +1,7 @@
 package com.sapibagus.android.api;
 
+import android.app.Application;
+
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -7,6 +9,8 @@ import com.sapibagus.android.api.service.DetailServices;
 import com.sapibagus.android.api.service.PageServices;
 import com.sapibagus.android.api.service.StreamServices;
 import com.squareup.okhttp.OkHttpClient;
+import com.squareup.picasso.OkHttpDownloader;
+import com.squareup.picasso.Picasso;
 
 import javax.inject.Singleton;
 

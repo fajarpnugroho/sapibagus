@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tag_label"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="8dp"
+    android:layout_marginRight="8dp"
+    android:drawableLeft="@drawable/ic_label_shape"
+    android:drawablePadding="8dp"
+    android:drawableStart="@drawable/ic_label_shape"
+    android:ellipsize="end"
+    android:maxWidth="120dp"
+    android:singleLine="true"
+    android:textSize="14sp"
+    tools:text="Bakalan sapi potong" />

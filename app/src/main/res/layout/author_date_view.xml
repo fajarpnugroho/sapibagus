@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black_light"
+        android:textSize="12sp"
+        tools:text="Sapibagus"/>
+
+    <android.widget.Space
+        android:layout_width="8dp"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="13dp"
+        android:background="@android:color/black"/>
+
+    <android.widget.Space
+        android:layout_width="8dp"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black_light"
+        android:textSize="12sp"
+        android:singleLine="true"
+        android:ellipsize="end"
+        tools:text="20 November 2015"/>
+
+</LinearLayout>
