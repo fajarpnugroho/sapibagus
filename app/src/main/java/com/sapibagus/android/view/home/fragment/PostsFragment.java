@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.sapibagus.android.Injector;
 import com.sapibagus.android.R;
+import com.sapibagus.android.api.model.entity.PostEntity;
 import com.sapibagus.android.api.model.response.CategoryPostsResponse;
 import com.sapibagus.android.view.home.PostsView;
 import com.sapibagus.android.view.home.adapter.PostsAdapter;
@@ -20,14 +21,15 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import timber.log.Timber;
 
-public class PostsFragment extends BaseFragment implements PostsView {
+public class PostsFragment extends BaseFragment implements PostsView, PostsAdapter.Listener {
 
     public static final String ARG_SLUG = "arg_slug";
     @Bind(R.id.list_post_view) ListPostView listPostView;
 
     @Inject PostsPresenter presenter;
+
+    private Controller controller;
 
     public PostsFragment() {}
 
@@ -44,6 +46,12 @@ public class PostsFragment extends BaseFragment implements PostsView {
     public void onAttach(Context context) {
         super.onAttach(context);
         Injector.INSTANCE.getApplicationComponent().inject(this);
+
+        if (!(context instanceof Controller)) {
+            throw new ClassCastException("Activity must implement " + Controller.class);
+        }
+
+        controller = (Controller) context;
     }
 
     @Nullable
@@ -65,7 +73,7 @@ public class PostsFragment extends BaseFragment implements PostsView {
 
     @Override
     public void showListPosts(CategoryPostsResponse categoryPostsResponse) {
-        PostsAdapter adapter = new PostsAdapter();
+        PostsAdapter adapter = new PostsAdapter(this);
         adapter.setPosts(categoryPostsResponse.posts);
         listPostView.setAdapter(adapter);
     }
@@ -80,5 +88,14 @@ public class PostsFragment extends BaseFragment implements PostsView {
     public void showEmpty() {
         listPostView.hideLoading();
         listPostView.showEmpty();
+    }
+
+    @Override
+    public void itemClickListener(PostEntity postEntity) {
+        controller.navigateDetail(postEntity);
+    }
+
+    public interface Controller {
+        void navigateDetail(PostEntity postEntity);
     }
 }

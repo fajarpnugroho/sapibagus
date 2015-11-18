@@ -29,12 +29,17 @@ public class AuthorDateView extends FrameLayout {
     public AuthorDateView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        LayoutInflater.from(context).inflate(R.layout.author_date_view, this);
+        LayoutInflater.from(context).inflate(R.layout.author_date_list_view, this);
         ButterKnife.bind(this);
     }
 
     public void bind(PostEntity postEntity) {
         author.setText(postEntity.author.name);
         date.setText(DateUtils.parseTimeAgo(postEntity.date).toString());
+    }
+
+    public void bind(String url, String dateText) {
+        author.setText(url);
+        date.setText(dateText);
     }
 }
