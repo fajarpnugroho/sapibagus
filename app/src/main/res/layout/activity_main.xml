@@ -29,7 +29,7 @@
             app:tabGravity="fill"
             app:tabIndicatorColor="?attr/colorAccent"
             app:tabIndicatorHeight="4dp"
-            app:tabMode="scrollable"
+            app:tabMode="fixed"
             app:tabSelectedTextColor="@android:color/white"
             app:tabTextColor="#FFA978" />
 

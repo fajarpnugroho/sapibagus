@@ -12,6 +12,7 @@ import com.sapibagus.android.Injector;
 import com.sapibagus.android.R;
 import com.sapibagus.android.api.model.entity.PostEntity;
 import com.sapibagus.android.api.model.response.CategoryPostsResponse;
+import com.sapibagus.android.api.model.response.RecentPostsResponse;
 import com.sapibagus.android.view.home.PostsView;
 import com.sapibagus.android.view.home.adapter.PostsAdapter;
 import com.sapibagus.android.view.home.presenter.PostsPresenter;
@@ -88,6 +89,13 @@ public class PostsFragment extends BaseFragment implements PostsView, PostsAdapt
     public void showEmpty() {
         listPostView.hideLoading();
         listPostView.showEmpty();
+    }
+
+    @Override
+    public void showRecentPost(RecentPostsResponse recentPostsResponse) {
+        PostsAdapter adapter = new PostsAdapter(this);
+        adapter.setPosts(recentPostsResponse.posts);
+        listPostView.setAdapter(adapter);
     }
 
     @Override

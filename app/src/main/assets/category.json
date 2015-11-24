@@ -2,24 +2,16 @@
   "data" : [
     {
       "id": 0,
-      "slug": "sajian-utama",
-      "title": "Sajian Utama",
+      "slug": "home",
+      "title": "Home",
       "description": "",
       "parent": 0,
       "post_count": 0
     },
     {
       "id": 0,
-      "slug": "bisnis",
-      "title": "Bisnis",
-      "description": "",
-      "parent": 0,
-      "post_count": 0
-    },
-    {
-      "id": 0,
-      "slug": "event",
-      "title": "Event",
+      "slug": "belajar",
+      "title": "Belajar",
       "description": "",
       "parent": 0,
       "post_count": 0
@@ -34,8 +26,8 @@
     },
     {
       "id": 0,
-      "slug": "belajar",
-      "title": "Belajar",
+      "slug": "event",
+      "title": "Event",
       "description": "",
       "parent": 0,
       "post_count": 0
