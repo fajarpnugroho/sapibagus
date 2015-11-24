@@ -5,18 +5,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/picture"
-        android:layout_width="match_parent"
-        android:layout_height="230dp"
-        android:contentDescription="@null"
-        android:visibility="gone"
-        tools:src="@android:drawable/zoom_plate" />
-
-    <android.support.v4.widget.Space
-        android:layout_width="match_parent"
-        android:layout_height="12dp" />
-
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
@@ -27,5 +15,18 @@
         android:textSize="24sp"
         android:textStyle="bold"
         tools:text="Judul artikel terbaru Judul artikel terbaru" />
+
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="12dp" />
+
+    <ImageView
+        android:id="@+id/picture"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:contentDescription="@null"
+        android:visibility="gone"
+        android:layout_marginBottom="12dp"
+        tools:src="@android:drawable/zoom_plate" />
 
 </LinearLayout>

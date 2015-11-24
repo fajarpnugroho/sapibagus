@@ -100,6 +100,7 @@ public class MainActivity extends BaseActivity implements MainView, PostsFragmen
     public void navigateDetail(PostEntity postEntity) {
         Intent intent = new Intent(this, DetailActivity.class);
         intent.putExtra(DetailActivity.EXTRA_POST_ID, (int) postEntity.id);
+        intent.putExtra(DetailActivity.EXTRA_CONTENT, postEntity.content);
         startActivity(intent);
     }
 

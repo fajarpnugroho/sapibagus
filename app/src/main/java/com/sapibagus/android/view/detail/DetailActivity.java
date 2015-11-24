@@ -21,6 +21,7 @@ import butterknife.ButterKnife;
 public class DetailActivity extends BaseActivity implements DetailView {
 
     public static final String EXTRA_POST_ID = "extra_post_id";
+    public static final String EXTRA_CONTENT = "extra_content";
 
     @Bind(R.id.list_post_view) ListPostView listPostView;
     @Bind(R.id.toolbar) Toolbar toolbar;
