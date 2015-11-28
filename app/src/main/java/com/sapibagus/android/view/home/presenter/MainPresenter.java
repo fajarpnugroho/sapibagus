@@ -21,14 +21,16 @@ public class MainPresenter {
 
     private MainView view;
     private Application application;
+    private MainNavigator navigator;
 
     @Inject
     public MainPresenter(Application application) {
         this.application = application;
     }
 
-    public void initView(MainView view) {
+    public void init(MainView view, MainNavigator navigator) {
         this.view = view;
+        this.navigator = navigator;
     }
 
     public void getCategories() {
@@ -52,5 +54,9 @@ public class MainPresenter {
                 Timber.e(READER_ALREADY_BEEN_CLOSED);
             }
         }
+    }
+
+    public void openPage(String pageName) {
+        navigator.navigateToPage(pageName);
     }
 }

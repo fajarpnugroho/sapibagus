@@ -1,4 +1,4 @@
-package com.sapibagus.android.view.detail.adapter;
+package com.sapibagus.android.view.page.adapter;
 
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
@@ -11,22 +11,21 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.sapibagus.android.R;
-import com.sapibagus.android.api.model.entity.PostEntity;
+import com.sapibagus.android.api.model.entity.PageEntity;
 import com.sapibagus.android.view.detail.widget.AuthorDateDetailView;
 import com.sapibagus.android.view.detail.widget.TitleView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class PageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int HEADER_TYPE = 0;
     private static final int CONTENT_TYPE = 1;
-    private PostEntity postEntity;
 
-    public DetailAdapter(PostEntity postEntity) {
-        this.postEntity = postEntity;
-    }
+    private final PageEntity pageEntity;
+
+    public PageAdapter(PageEntity pageEntity) { this.pageEntity = pageEntity; }
 
     @Override
     public int getItemViewType(int position) {
@@ -55,10 +54,10 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof MetaViewHolder) {
             MetaViewHolder viewHolder = (MetaViewHolder) holder;
-            viewHolder.bind(postEntity);
+            viewHolder.bind(pageEntity);
         } else if (holder instanceof ContentViewHolder) {
             ContentViewHolder viewHolder = (ContentViewHolder) holder;
-            viewHolder.bind(postEntity);
+            viewHolder.bind(pageEntity);
         }
     }
 
@@ -82,8 +81,8 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(PostEntity postEntity) {
-            authorDateDetailView.bind(postEntity.author, postEntity.date);
+        public void bind(PageEntity pageEntity) {
+            authorDateDetailView.bind(pageEntity.author, pageEntity.date);
         }
     }
 
@@ -109,15 +108,16 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             });
         }
 
-        public void bind(PostEntity postEntity) {
-            titleView.bind(postEntity.attachments, postEntity.titlePlain);
+        public void bind(PageEntity pageEntity) {
+            titleView.bind(pageEntity.attachments, pageEntity.titlePlain);
 
             StringBuilder sb = new StringBuilder();
             sb.append("<HTML><HEAD>"
                     + "<LINK href=\"http://www.sapibagus.com/wp-content/plugins/yet-another-related-posts-plugin/style/related.css?ver=4.3.1\" type=\"text/css\" rel=\"stylesheet\"/>"
                     + "<LINK href=\"http://www.sapibagus.com/wp-content/plugins/yet-another-related-posts-plugin/includes/styles_thumbnails.css.php?width=120&height=120&ver=4.2.5\" type=\"text/css\" rel=\"stylesheet\"/>"
+                    + "<STYLE>iframe { height: 1000px; }</STYLE>"
                     + "</HEAD><body>");
-            sb.append(postEntity.content);
+            sb.append(pageEntity.content);
             sb.append("</BODY></HTML>");
 
 

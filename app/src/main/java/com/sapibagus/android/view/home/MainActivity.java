@@ -1,9 +1,6 @@
 package com.sapibagus.android.view.home;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,14 +9,15 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.sapibagus.android.Injector;
 import com.sapibagus.android.R;
 import com.sapibagus.android.api.model.entity.CategoryEntity;
-import com.sapibagus.android.api.model.entity.PostEntity;
 import com.sapibagus.android.api.model.response.CategoriesResponse;
 import com.sapibagus.android.view.BaseActivity;
-import com.sapibagus.android.view.detail.DetailActivity;
 import com.sapibagus.android.view.home.fragment.PostsFragment;
+import com.sapibagus.android.view.home.presenter.MainNavigator;
 import com.sapibagus.android.view.home.presenter.MainPresenter;
 
 import java.util.ArrayList;
@@ -30,12 +28,12 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity implements MainView, PostsFragment.Controller {
+public class MainActivity extends BaseActivity implements MainView {
 
     @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.sliding_tabs) TabLayout tabLayout;
     @Bind(R.id.viewpager) ViewPager viewPager;
-    @Bind(R.id.fab) FloatingActionButton fab;
+    @Bind(R.id.fab) FloatingActionsMenu fabMenu;
 
     @Inject MainPresenter presenter;
 
@@ -54,7 +52,7 @@ public class MainActivity extends BaseActivity implements MainView, PostsFragmen
         initToolbar();
         initFAB();
 
-        presenter.initView(this);
+        presenter.init(this, new MainNavigator(this));
         presenter.getCategories();
     }
 
@@ -80,28 +78,36 @@ public class MainActivity extends BaseActivity implements MainView, PostsFragmen
 
     @Override
     public void initFAB() {
-        fab.setVisibility(View.GONE);
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fabPelatihan = new FloatingActionButton(this);
+        fabPelatihan.setTitle("Pelatihan");
+        fabPelatihan.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(View v) {
+                presenter.openPage(getString(R.string.slug_page_pelatihan));
+
+                fabMenu.collapse();
             }
         });
+
+        FloatingActionButton fabMitra = new FloatingActionButton(this);
+        fabMitra.setTitle("Mitra");
+        fabMitra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.openPage(getString(R.string.slug_page_mitra_binaan));
+
+                fabMenu.collapse();
+            }
+        });
+
+        fabMenu.addButton(fabPelatihan);
+        fabMenu.addButton(fabMitra);
     }
 
     @Override
     public void showCategories(CategoriesResponse response) {
         this.categoriesResponse = response;
         initPager();
-    }
-
-    @Override
-    public void navigateDetail(PostEntity postEntity) {
-        Intent intent = new Intent(this, DetailActivity.class);
-        intent.putExtra(DetailActivity.EXTRA_POST_ID, (int) postEntity.id);
-        intent.putExtra(DetailActivity.EXTRA_CONTENT, postEntity.content);
-        startActivity(intent);
     }
 
     private class MainPagerAdapter extends FragmentStatePagerAdapter {

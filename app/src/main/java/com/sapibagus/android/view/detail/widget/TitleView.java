@@ -9,10 +9,11 @@ import android.widget.TextView;
 
 import com.sapibagus.android.R;
 import com.sapibagus.android.api.model.entity.AttachmentEntity;
-import com.sapibagus.android.api.model.entity.PostEntity;
 import com.sapibagus.android.utils.AssetUtils;
 import com.sapibagus.android.utils.ImageUtils;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -38,9 +39,9 @@ public class TitleView extends FrameLayout {
         ButterKnife.bind(this);
     }
 
-    public void bind(PostEntity postEntity) {
+    public void bind(List<AttachmentEntity> attachments, String titlePlain) {
         AttachmentEntity attachmentEntity = ImageUtils
-                .getImageAttachment(postEntity.attachments);
+                .getImageAttachment(attachments);
 
         if (attachmentEntity != null) {
             picture.setVisibility(VISIBLE);
@@ -53,7 +54,7 @@ public class TitleView extends FrameLayout {
             picture.setVisibility(GONE);
         }
 
-        title.setText(postEntity.titlePlain);
+        title.setText(titlePlain);
         title.setTypeface(AssetUtils.getTypeface(getContext(), "fonts/Arvo-Regular.ttf"));
 
     }

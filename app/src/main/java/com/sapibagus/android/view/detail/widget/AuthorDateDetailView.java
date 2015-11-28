@@ -7,7 +7,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.sapibagus.android.R;
-import com.sapibagus.android.api.model.entity.PostEntity;
+import com.sapibagus.android.api.model.entity.AuthorEntity;
 import com.sapibagus.android.utils.DateUtils;
 import com.sapibagus.android.view.home.widget.AuthorDateView;
 
@@ -34,9 +34,8 @@ public class AuthorDateDetailView extends FrameLayout {
         ButterKnife.bind(this);
     }
 
-    public void bind(PostEntity postEntity) {
-        author.setText(postEntity.author.name);
-        sourceDateView.bind(postEntity.author.url,
-                DateUtils.parseTimeAgo(postEntity.date).toString());
+    public void bind(AuthorEntity authorEntity, String date) {
+        author.setText(authorEntity.name);
+        sourceDateView.bind(authorEntity.url, DateUtils.parseTimeAgo(date).toString());
     }
 }

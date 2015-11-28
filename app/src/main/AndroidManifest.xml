@@ -30,5 +30,9 @@
             android:name=".view.detail.DetailActivity"
             android:label="@string/app_name"/>
 
+        <activity
+            android:name=".view.page.PageActivity"
+            android:label="@string/app_name"/>
+
     </application>
 </manifest>

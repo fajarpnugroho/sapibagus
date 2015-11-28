@@ -15,6 +15,7 @@ import com.sapibagus.android.api.model.response.CategoryPostsResponse;
 import com.sapibagus.android.api.model.response.RecentPostsResponse;
 import com.sapibagus.android.view.home.PostsView;
 import com.sapibagus.android.view.home.adapter.PostsAdapter;
+import com.sapibagus.android.view.home.presenter.PostNavigator;
 import com.sapibagus.android.view.home.presenter.PostsPresenter;
 import com.sapibagus.android.view.home.widget.ListPostView;
 
@@ -29,8 +30,6 @@ public class PostsFragment extends BaseFragment implements PostsView, PostsAdapt
     @Bind(R.id.list_post_view) ListPostView listPostView;
 
     @Inject PostsPresenter presenter;
-
-    private Controller controller;
 
     public PostsFragment() {}
 
@@ -47,12 +46,6 @@ public class PostsFragment extends BaseFragment implements PostsView, PostsAdapt
     public void onAttach(Context context) {
         super.onAttach(context);
         Injector.INSTANCE.getApplicationComponent().inject(this);
-
-        if (!(context instanceof Controller)) {
-            throw new ClassCastException("Activity must implement " + Controller.class);
-        }
-
-        controller = (Controller) context;
     }
 
     @Nullable
@@ -67,7 +60,7 @@ public class PostsFragment extends BaseFragment implements PostsView, PostsAdapt
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter.initView(this);
+        presenter.init(this, new PostNavigator(getActivity()));
         listPostView.initView();
         presenter.fetchCategoryPosts(getArguments().getString(ARG_SLUG));
     }
@@ -100,10 +93,6 @@ public class PostsFragment extends BaseFragment implements PostsView, PostsAdapt
 
     @Override
     public void itemClickListener(PostEntity postEntity) {
-        controller.navigateDetail(postEntity);
-    }
-
-    public interface Controller {
-        void navigateDetail(PostEntity postEntity);
+        presenter.navigateDetail(postEntity);
     }
 }

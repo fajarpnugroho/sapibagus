@@ -6,6 +6,7 @@ import com.sapibagus.android.api.ApiModule;
 import com.sapibagus.android.view.detail.DetailActivity;
 import com.sapibagus.android.view.home.MainActivity;
 import com.sapibagus.android.view.home.fragment.PostsFragment;
+import com.sapibagus.android.view.page.PageActivity;
 
 import javax.inject.Singleton;
 
@@ -21,4 +22,6 @@ public interface ApplicationComponent extends ApplicationContextComponent {
     void inject(MainActivity mainActivity);
 
     void inject(DetailActivity detailActivity);
+
+    void inject(PageActivity pageActivity);
 }
