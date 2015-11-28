@@ -20,14 +20,14 @@ public final class PageEntity {
     public final List<CommentEntity> comments;
     public final List<AttachmentEntity> attachments;
     public final int commmentCount;
-    public final int commentStatus;
+    public final String commentStatus;
 
     public PageEntity(long id, String type, String slug, String url, String status, String title,
                       String titlePlain, String content, String excerpt,
                       String date, String modified, List<CategoryEntity> categories,
                       List<TagEntity> tags, AuthorEntity author, List<CommentEntity> comments,
                       List<AttachmentEntity> attachments, int commmentCount,
-                      int commentStatus) {
+                      String commentStatus) {
         this.id = id;
         this.type = type;
         this.slug = slug;

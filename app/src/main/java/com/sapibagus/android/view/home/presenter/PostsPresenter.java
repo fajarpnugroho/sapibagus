@@ -1,5 +1,6 @@
 package com.sapibagus.android.view.home.presenter;
 
+import com.sapibagus.android.api.model.entity.PostEntity;
 import com.sapibagus.android.api.model.response.CategoryPostsResponse;
 import com.sapibagus.android.api.model.response.RecentPostsResponse;
 import com.sapibagus.android.api.service.StreamServices;
@@ -14,16 +15,19 @@ import retrofit.Retrofit;
 
 public class PostsPresenter {
 
-    private StreamServices streamServices;
+    private final StreamServices streamServices;
+
     private PostsView view;
+    private PostNavigator navigator;
 
     @Inject
     public PostsPresenter(StreamServices streamServices) {
         this.streamServices = streamServices;
     }
 
-    public void initView(PostsView view) {
+    public void init(PostsView view, PostNavigator navigator) {
         this.view = view;
+        this.navigator = navigator;
     }
 
     public void fetchCategoryPosts(String slug) {
@@ -64,5 +68,9 @@ public class PostsPresenter {
                 }
             });
         }
+    }
+
+    public void navigateDetail(PostEntity postEntity) {
+        navigator.navigateToDetail(postEntity);
     }
 }
