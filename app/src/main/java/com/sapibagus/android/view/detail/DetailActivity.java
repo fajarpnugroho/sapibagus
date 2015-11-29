@@ -37,7 +37,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Injector.INSTANCE.getApplicationComponent().inject(this);
+        Injector.INSTANCE.getContextComponent().inject(this);
 
         setContentView(R.layout.activity_detail);
 

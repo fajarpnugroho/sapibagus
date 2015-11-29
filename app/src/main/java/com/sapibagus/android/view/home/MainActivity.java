@@ -43,7 +43,7 @@ public class MainActivity extends BaseActivity implements MainView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Injector.INSTANCE.getApplicationComponent().inject(this);
+        Injector.INSTANCE.getContextComponent().inject(this);
 
         setContentView(R.layout.activity_main);
 

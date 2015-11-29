@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <WebView
-        android:id="@+id/content"
+    <com.sapibagus.android.view.detail.widget.WebLoadingView
+        android:id="@+id/web_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 </LinearLayout>

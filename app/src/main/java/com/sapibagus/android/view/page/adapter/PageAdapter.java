@@ -2,18 +2,14 @@ package com.sapibagus.android.view.page.adapter;
 
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
-import android.util.Xml;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
 
 import com.sapibagus.android.R;
 import com.sapibagus.android.api.model.entity.PageEntity;
 import com.sapibagus.android.view.detail.widget.AuthorDateDetailView;
 import com.sapibagus.android.view.detail.widget.TitleView;
+import com.sapibagus.android.view.detail.widget.WebLoadingView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -89,39 +85,16 @@ public class PageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static class ContentViewHolder extends Holder {
 
         @Bind(R.id.title_view) TitleView titleView;
-        @Bind(R.id.content) WebView contentWebView;
+        @Bind(R.id.web_view) WebLoadingView webView;
 
         public ContentViewHolder(ViewGroup parent) {
             super(R.layout.item_content_view, parent);
             ButterKnife.bind(this, itemView);
-
-            contentWebView.getSettings().setJavaScriptEnabled(true);
-
-            contentWebView.getSettings().setLayoutAlgorithm(WebSettings
-                    .LayoutAlgorithm.SINGLE_COLUMN);
-
-            contentWebView.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    return (event.getAction() == MotionEvent.ACTION_MOVE);
-                }
-            });
         }
 
         public void bind(PageEntity pageEntity) {
             titleView.bind(pageEntity.attachments, pageEntity.titlePlain);
-
-            StringBuilder sb = new StringBuilder();
-            sb.append("<HTML><HEAD>"
-                    + "<LINK href=\"http://www.sapibagus.com/wp-content/plugins/yet-another-related-posts-plugin/style/related.css?ver=4.3.1\" type=\"text/css\" rel=\"stylesheet\"/>"
-                    + "<LINK href=\"http://www.sapibagus.com/wp-content/plugins/yet-another-related-posts-plugin/includes/styles_thumbnails.css.php?width=120&height=120&ver=4.2.5\" type=\"text/css\" rel=\"stylesheet\"/>"
-                    + "<STYLE>iframe { height: 1000px; }</STYLE>"
-                    + "</HEAD><body>");
-            sb.append(pageEntity.content);
-            sb.append("</BODY></HTML>");
-
-
-            contentWebView.loadData(sb.toString(), "text/html", Xml.Encoding.US_ASCII.toString());
+            webView.bind(pageEntity.content);
         }
     }
 }

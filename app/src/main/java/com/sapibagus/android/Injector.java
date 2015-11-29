@@ -7,12 +7,12 @@ public enum Injector {
 
     Injector() {}
 
-    private ApplicationComponent applicationComponent;
+    private ApplicationContextComponent contextComponent;
 
     void initializeComponent(Application application) {
-        applicationComponent = DaggerApplicationComponent.builder()
+        contextComponent = DaggerApplicationComponent.builder()
                 .applicationContextModule(new ApplicationContextModule(application)).build();
     }
 
-    public ApplicationComponent getApplicationComponent() { return applicationComponent; }
+    public ApplicationContextComponent getContextComponent() { return contextComponent; }
 }

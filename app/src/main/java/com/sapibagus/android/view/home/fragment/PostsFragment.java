@@ -45,7 +45,7 @@ public class PostsFragment extends BaseFragment implements PostsView, PostsAdapt
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Injector.INSTANCE.getApplicationComponent().inject(this);
+        Injector.INSTANCE.getContextComponent().inject(this);
     }
 
     @Nullable

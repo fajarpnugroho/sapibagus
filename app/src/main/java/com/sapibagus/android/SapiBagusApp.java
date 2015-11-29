@@ -6,20 +6,11 @@ import android.support.multidex.MultiDex;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
-import com.sapibagus.android.api.ApiConfig;
-import com.squareup.okhttp.Cache;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.picasso.OkHttpDownloader;
-import com.squareup.picasso.Picasso;
-
-import javax.inject.Inject;
 
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
 public class SapiBagusApp extends Application {
-
-    private static final long PICASSO_CACHE_SIZE_IN_BYTE = 100 * 1024 * 1024; // 100 MB
 
     @Override
     public void onCreate() {
