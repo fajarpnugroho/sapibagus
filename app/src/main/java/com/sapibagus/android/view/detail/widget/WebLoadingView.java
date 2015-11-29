@@ -58,6 +58,7 @@ public class WebLoadingView extends FrameLayout {
         sb.append("<HTML><HEAD>"
                 + "<LINK href=\"http://www.sapibagus.com/wp-content/plugins/yet-another-related-posts-plugin/style/related.css?ver=4.3.1\" type=\"text/css\" rel=\"stylesheet\"/>"
                 + "<LINK href=\"http://www.sapibagus.com/wp-content/plugins/yet-another-related-posts-plugin/includes/styles_thumbnails.css.php?width=120&height=120&ver=4.2.5\" type=\"text/css\" rel=\"stylesheet\"/>"
+                + "<STYLE>iframe { height: 1000px; }</STYLE>"
                 + "</HEAD><body>");
         sb.append(content);
         sb.append("</BODY></HTML>");
