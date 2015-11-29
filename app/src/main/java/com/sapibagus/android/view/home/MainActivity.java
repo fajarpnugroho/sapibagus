@@ -80,6 +80,7 @@ public class MainActivity extends BaseActivity implements MainView {
     public void initFAB() {
         FloatingActionButton fabPelatihan = new FloatingActionButton(this);
         fabPelatihan.setTitle("Pelatihan");
+        fabPelatihan.setSize(FloatingActionButton.SIZE_MINI);
         fabPelatihan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,6 +92,7 @@ public class MainActivity extends BaseActivity implements MainView {
 
         FloatingActionButton fabMitra = new FloatingActionButton(this);
         fabMitra.setTitle("Mitra");
+        fabMitra.setSize(FloatingActionButton.SIZE_MINI);
         fabMitra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

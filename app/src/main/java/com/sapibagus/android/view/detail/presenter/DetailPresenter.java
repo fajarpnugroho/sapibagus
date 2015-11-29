@@ -13,16 +13,18 @@ import retrofit.Retrofit;
 
 public class DetailPresenter {
 
-    private DetailServices services;
+    private final DetailServices services;
     private DetailView view;
+    private DetailNavigator navigator;
 
     @Inject
     public DetailPresenter(DetailServices services) {
         this.services = services;
     }
 
-    public void initView(DetailView view) {
+    public void init(DetailView view, DetailNavigator navigator) {
         this.view = view;
+        this.navigator = navigator;
     }
 
     public void getContentDetail(int postId) {
@@ -49,5 +51,9 @@ public class DetailPresenter {
                 view.showError(t);
             }
         });
+    }
+
+    public void share(String url) {
+        navigator.shareAction(url);
     }
 }

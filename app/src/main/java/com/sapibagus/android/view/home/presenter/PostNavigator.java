@@ -18,6 +18,7 @@ public class PostNavigator {
         Intent intent = new Intent(activity, DetailActivity.class);
         intent.putExtra(DetailActivity.EXTRA_POST_ID, (int) postEntity.id);
         intent.putExtra(DetailActivity.EXTRA_CONTENT, postEntity.content);
+        intent.putExtra(DetailActivity.EXTRA_URL, postEntity.url);
         activity.startActivity(intent);
     }
 }

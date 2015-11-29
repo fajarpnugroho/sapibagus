@@ -8,4 +8,5 @@
     <string name="message_empty">Artikel tidak ditemukan.</string>
     <string name="slug_page_pelatihan">pelatihan</string>
     <string name="slug_page_mitra_binaan">mitra-binaan</string>
+    <string name="menu_share">Share</string>
 </resources>
