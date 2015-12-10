@@ -16,7 +16,22 @@
 #   public *;
 #}
 
--keep class com.sapibagus.android.api.**
+-keepattributes *Annotation*
+
+-keep public class com.sapibagus.android.api.** { *; }
+-keep public class com.sapibagus.android.view.** { *; }
+
+-dontwarn com.google.android.gms.internal.**
+-dontwarn java.nio.file.Files
+-dontwarn java.nio.file.Path
+-dontwarn java.nio.file.OpenOption
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+
+# Hide warnings about references to newer platforms in the library
+-dontwarn android.support.v7.**
+# don't process support library
+-keep class android.support.v7.** { *; }
+-keep interface android.support.v7.** { *; }
 
 # Butterknife
 -keep class butterknife.** { *; }
