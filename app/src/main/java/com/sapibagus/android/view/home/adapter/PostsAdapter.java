@@ -24,9 +24,12 @@ import butterknife.ButterKnife;
 
 public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<PostEntity> posts;
+    private static final int VIEW_POST = 1;
+    private static final int VIEW_PROGRESS = 2;
 
+    private List<PostEntity> posts;
     private Listener listener;
+    private boolean maxItemReached = false;
 
     public PostsAdapter(Listener listener) {
         this.listener = listener;
@@ -35,8 +38,19 @@ public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void setPosts(List<PostEntity> posts) { this.posts = posts; }
 
     @Override
+    public int getItemViewType(int position) {
+        return position == posts.size() ? VIEW_PROGRESS : VIEW_POST;
+    }
+
+    @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new PostViewHolder(parent, listener);
+        if (viewType == VIEW_POST) {
+            return new PostViewHolder(parent, listener);
+        } else if (viewType == VIEW_PROGRESS){
+            return new ProgressViewHolder(parent);
+        } else {
+            throw new IllegalStateException("Invalid view type");
+        }
     }
 
     @Override
@@ -44,11 +58,26 @@ public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         if (holder instanceof PostViewHolder) {
             PostViewHolder viewHolder = (PostViewHolder) holder;
             viewHolder.bind(posts.get(position));
+        } else if (holder instanceof ProgressViewHolder) {
+            ProgressViewHolder viewHolder = (ProgressViewHolder) holder;
+            if (maxItemReached) {
+                viewHolder.itemView.setVisibility(View.GONE);
+            }
         }
     }
 
     @Override
-    public int getItemCount() { return posts.size(); }
+    public int getItemCount() { return posts.size() + 1; }
+
+    public void moreListPosts(List<PostEntity> posts) {
+        this.posts.addAll(posts);
+        notifyDataSetChanged();
+    }
+
+    public void noLoadMore() {
+        maxItemReached = true;
+        notifyDataSetChanged();
+    }
 
     public static class Holder extends RecyclerView.ViewHolder {
         public Holder(@LayoutRes int resId, ViewGroup parent) {
@@ -99,6 +128,13 @@ public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     listener.itemClickListener(postEntity);
                 }
             });
+        }
+    }
+
+    public static class ProgressViewHolder extends Holder {
+
+        public ProgressViewHolder(ViewGroup parent) {
+            super(R.layout.list_progress_bar, parent);
         }
     }
 

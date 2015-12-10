@@ -14,5 +14,6 @@ public interface StreamServices {
                                           @Query("count") Integer count);
 
     @GET("api/get_category_posts")
-    Call<CategoryPostsResponse> categoryPosts(@Query("slug") String slug);
+    Call<CategoryPostsResponse> categoryPosts(@Query("slug") String slug,
+                                              @Query("page") Integer page);
 }

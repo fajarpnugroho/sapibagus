@@ -18,6 +18,7 @@ import com.sapibagus.android.view.home.adapter.PostsAdapter;
 import com.sapibagus.android.view.home.presenter.PostNavigator;
 import com.sapibagus.android.view.home.presenter.PostsPresenter;
 import com.sapibagus.android.view.home.widget.ListPostView;
+import com.sapibagus.android.view.listener.ListScrollListener;
 
 import javax.inject.Inject;
 
@@ -30,6 +31,9 @@ public class PostsFragment extends BaseFragment implements PostsView, PostsAdapt
     @Bind(R.id.list_post_view) ListPostView listPostView;
 
     @Inject PostsPresenter presenter;
+
+    private PostsAdapter adapter;
+    private int pages;
 
     public PostsFragment() {}
 
@@ -46,6 +50,7 @@ public class PostsFragment extends BaseFragment implements PostsView, PostsAdapt
     public void onAttach(Context context) {
         super.onAttach(context);
         Injector.INSTANCE.getContextComponent().inject(this);
+        adapter = new PostsAdapter(this);
     }
 
     @Nullable
@@ -62,12 +67,18 @@ public class PostsFragment extends BaseFragment implements PostsView, PostsAdapt
         super.onViewCreated(view, savedInstanceState);
         presenter.init(this, new PostNavigator(getActivity()));
         listPostView.initView();
-        presenter.fetchCategoryPosts(getArguments().getString(ARG_SLUG));
+        presenter.fetchPosts(getArguments().getString(ARG_SLUG), null);
+
+        listPostView.addScrollListener(new ListScrollListener() {
+            @Override
+            public void loadMore(int page) {
+                presenter.fetchPosts(getArguments().getString(ARG_SLUG), page);
+            }
+        });
     }
 
     @Override
     public void showListPosts(CategoryPostsResponse categoryPostsResponse) {
-        PostsAdapter adapter = new PostsAdapter(this);
         adapter.setPosts(categoryPostsResponse.posts);
         listPostView.setAdapter(adapter);
     }
@@ -86,9 +97,27 @@ public class PostsFragment extends BaseFragment implements PostsView, PostsAdapt
 
     @Override
     public void showRecentPost(RecentPostsResponse recentPostsResponse) {
-        PostsAdapter adapter = new PostsAdapter(this);
         adapter.setPosts(recentPostsResponse.posts);
         listPostView.setAdapter(adapter);
+    }
+
+    @Override
+    public void moreRecentPosts(RecentPostsResponse recentPostsResponse) {
+        if (adapter != null) {
+            adapter.moreListPosts(recentPostsResponse.posts);
+        }
+    }
+
+    @Override
+    public void noMorePosts() {
+        adapter.noLoadMore();
+    }
+
+    @Override
+    public void moreListPosts(CategoryPostsResponse categoryPostsResponse) {
+        if (adapter != null) {
+            adapter.moreListPosts(categoryPostsResponse.posts);
+        }
     }
 
     @Override

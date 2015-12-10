@@ -30,17 +30,16 @@ public class PostsPresenter {
         this.navigator = navigator;
     }
 
-    public void fetchCategoryPosts(String slug) {
+    public void fetchPosts(String slug, final Integer page) {
         if (slug.equalsIgnoreCase("home")) {
-            Call<RecentPostsResponse> call = streamServices.recentPosts(null, null);
+            Call<RecentPostsResponse> call = streamServices.recentPosts(page, null);
             call.enqueue(new Callback<RecentPostsResponse>() {
                 @Override
                 public void onResponse(Response<RecentPostsResponse> response, Retrofit retrofit) {
-                    if (response.body() != null) {
-                        RecentPostsResponse recentPostsResponse = response.body();
-                        view.showRecentPost(recentPostsResponse);
+                    if (page == null) {
+                        showRecentPosts(response.body());
                     } else {
-                        view.showEmpty();
+                        moreRecentPosts(response.body());
                     }
                 }
 
@@ -50,15 +49,14 @@ public class PostsPresenter {
                 }
             });
         } else {
-            Call<CategoryPostsResponse> call = streamServices.categoryPosts(slug);
+            Call<CategoryPostsResponse> call = streamServices.categoryPosts(slug, page);
             call.enqueue(new Callback<CategoryPostsResponse>() {
                 @Override
                 public void onResponse(Response<CategoryPostsResponse> response, Retrofit retrofit) {
-                    if (response.body() != null) {
-                        CategoryPostsResponse categoryPostsResponse = response.body();
-                        view.showListPosts(categoryPostsResponse);
+                    if (page == null) {
+                        showListPosts(response.body());
                     } else {
-                        view.showEmpty();
+                        moreListPosts(response.body());
                     }
                 }
 
@@ -67,6 +65,38 @@ public class PostsPresenter {
                     view.showError(t);
                 }
             });
+        }
+    }
+
+    public void showRecentPosts(RecentPostsResponse recentPostsResponse) {
+        if (recentPostsResponse != null) {
+            view.showRecentPost(recentPostsResponse);
+        } else {
+            view.showEmpty();
+        }
+    }
+
+    public void showListPosts(CategoryPostsResponse categoryPostsResponse) {
+        if (categoryPostsResponse != null) {
+            view.showListPosts(categoryPostsResponse);
+        } else {
+            view.showEmpty();
+        }
+    }
+
+    public void moreRecentPosts(RecentPostsResponse recentPostsResponse) {
+        if (recentPostsResponse.count > 0) {
+            view.moreRecentPosts(recentPostsResponse);
+        } else {
+            view.noMorePosts();
+        }
+    }
+
+    public void moreListPosts(CategoryPostsResponse categoryPostsResponse) {
+        if (categoryPostsResponse.count > 0) {
+            view.moreListPosts(categoryPostsResponse);
+        } else {
+            view.noMorePosts();
         }
     }
 

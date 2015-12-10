@@ -11,4 +11,10 @@ public interface PostsView {
     void showEmpty();
 
     void showRecentPost(RecentPostsResponse recentPostsResponse);
+
+    void moreRecentPosts(RecentPostsResponse recentPostsResponse);
+
+    void noMorePosts();
+
+    void moreListPosts(CategoryPostsResponse categoryPostsResponse);
 }

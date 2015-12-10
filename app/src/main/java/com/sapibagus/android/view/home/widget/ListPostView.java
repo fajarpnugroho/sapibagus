@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.sapibagus.android.R;
 import com.sapibagus.android.view.home.decoration.DividerItemDecoration;
+import com.sapibagus.android.view.listener.ListScrollListener;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -60,4 +61,8 @@ public class ListPostView extends FrameLayout {
     public void showEmpty() { emptyView.setVisibility(VISIBLE); }
 
     public void hideEmpty() { emptyView.setVisibility(GONE); }
+
+    public void addScrollListener(ListScrollListener scrollListener) {
+        recyclerView.addOnScrollListener(scrollListener);
+    }
 }
