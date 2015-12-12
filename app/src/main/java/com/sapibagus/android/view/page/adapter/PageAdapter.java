@@ -94,7 +94,7 @@ public class PageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         public void bind(PageEntity pageEntity) {
             titleView.bind(pageEntity.attachments, pageEntity.titlePlain);
-            webView.bind(pageEntity.content);
+            webView.bind("", pageEntity.content);
         }
     }
 }

@@ -18,7 +18,13 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="51dp"
+                android:src="@drawable/header_logo" />
+        </android.support.v7.widget.Toolbar>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/sliding_tabs"
@@ -43,7 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:fab_labelStyle="@style/menu_labels_style"
-        app:fab_icon="@android:drawable/ic_dialog_email" />
+        app:fab_icon="@android:drawable/ic_dialog_email"
+        app:fab_labelStyle="@style/menu_labels_style" />
 
 </android.support.design.widget.CoordinatorLayout>

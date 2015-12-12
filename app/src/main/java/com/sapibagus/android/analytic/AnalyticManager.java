@@ -5,6 +5,8 @@ import com.google.android.gms.analytics.Tracker;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 public class AnalyticManager {
 
     private final Tracker tracker;
@@ -17,6 +19,8 @@ public class AnalyticManager {
     public void sendScreen(String screenName) {
         tracker.setScreenName(screenName);
         tracker.send(new HitBuilders.ScreenViewBuilder().build());
+
+        Timber.i("Track screen " + screenName);
     }
 
     public void sendEvent(String category, String action, String label) {
@@ -26,5 +30,7 @@ public class AnalyticManager {
                 .setLabel(label)
                 .build()
         );
+
+        Timber.i(String.format("Track event %s / %s / %s", category, action, label));
     }
 }

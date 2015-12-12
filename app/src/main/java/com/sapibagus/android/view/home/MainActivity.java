@@ -13,6 +13,8 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.sapibagus.android.Injector;
 import com.sapibagus.android.R;
+import com.sapibagus.android.analytic.AnalyticManager;
+import com.sapibagus.android.analytic.AnalyticTracker;
 import com.sapibagus.android.api.model.entity.CategoryEntity;
 import com.sapibagus.android.api.model.response.CategoriesResponse;
 import com.sapibagus.android.view.BaseActivity;
@@ -28,14 +30,19 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity implements MainView {
+public class MainActivity extends BaseActivity implements MainView, AnalyticTracker {
 
+    public static final int HOME_POSITION = 0;
+    public static final int BELAJAR_POSITION = 1;
+    public static final int INFO_POSITION = 2;
+    public static final int EVENT_POSITION = 3;
     @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.sliding_tabs) TabLayout tabLayout;
     @Bind(R.id.viewpager) ViewPager viewPager;
     @Bind(R.id.fab) FloatingActionsMenu fabMenu;
 
     @Inject MainPresenter presenter;
+    @Inject AnalyticManager analyticManager;
 
     private CategoriesResponse categoriesResponse;
 
@@ -56,10 +63,13 @@ public class MainActivity extends BaseActivity implements MainView {
         presenter.getCategories();
     }
 
-
     @Override
     public void initToolbar() {
         setSupportActionBar(toolbar);
+        if (getSupportActionBar() == null) {
+            throw new IllegalStateException("Acitivty must provide action bar");
+        }
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     @Override
@@ -73,7 +83,44 @@ public class MainActivity extends BaseActivity implements MainView {
 
         viewPager.setOffscreenPageLimit(1);
         viewPager.setAdapter(pagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
+
+        tabLayout.addTab(tabLayout.newTab().setText("HOME"));
+        tabLayout.addTab(tabLayout.newTab().setText("BELAJAR"));
+        tabLayout.addTab(tabLayout.newTab().setText("INFO"));
+        tabLayout.addTab(tabLayout.newTab().setText("EVENT"));
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+                viewPager.setCurrentItem(tab.getPosition());
+
+                switch (tab.getPosition()) {
+                    case HOME_POSITION:
+                        trackScreen("Home");
+                        break;
+                    case BELAJAR_POSITION:
+                        trackScreen("Belajar");
+                        break;
+                    case INFO_POSITION:
+                        trackScreen("Info");
+                        break;
+                    case EVENT_POSITION:
+                        trackScreen("Event");
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
+
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
     }
 
     @Override
@@ -84,6 +131,9 @@ public class MainActivity extends BaseActivity implements MainView {
         fabPelatihan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                trackEvent("FAB", "Open Pelatihan", "Pelatihan");
+
                 presenter.openPage(getString(R.string.slug_page_pelatihan));
 
                 fabMenu.collapse();
@@ -98,6 +148,8 @@ public class MainActivity extends BaseActivity implements MainView {
             public void onClick(View v) {
                 presenter.openPage(getString(R.string.slug_page_mitra_binaan));
 
+                trackEvent("FAB", "Open Mitra", "Mitra");
+
                 fabMenu.collapse();
             }
         });
@@ -110,6 +162,16 @@ public class MainActivity extends BaseActivity implements MainView {
     public void showCategories(CategoriesResponse response) {
         this.categoriesResponse = response;
         initPager();
+    }
+
+    @Override
+    public void trackScreen(String screenName) {
+        analyticManager.sendScreen(screenName);
+    }
+
+    @Override
+    public void trackEvent(String eventCategory, String eventAction, String eventLabel) {
+        analyticManager.sendEvent(eventCategory, eventAction, eventLabel);
     }
 
     private class MainPagerAdapter extends FragmentStatePagerAdapter {

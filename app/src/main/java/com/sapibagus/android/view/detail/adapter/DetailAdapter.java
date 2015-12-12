@@ -101,7 +101,7 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         public void bind(PostEntity postEntity) {
             titleView.bind(postEntity.attachments, postEntity.titlePlain);
-            webView.bind(postEntity.content);
+            webView.bind("", postEntity.content);
         }
     }
 }

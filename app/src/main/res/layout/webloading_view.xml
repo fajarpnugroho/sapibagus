@@ -13,8 +13,8 @@
         android:id="@+id/loading_view"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_gravity="bottom"
+        android:layout_gravity="top"
         android:background="@android:color/white"
         app:intermediateProgressBar="true"/>
 
-</FrameLayout>
+</FrameLayout>g
