@@ -17,4 +17,4 @@
         android:background="@android:color/white"
         app:intermediateProgressBar="true"/>
 
-</FrameLayout>g
+</FrameLayout>
