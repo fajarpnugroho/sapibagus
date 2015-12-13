@@ -27,10 +27,21 @@ public class DetailPresenter {
         this.navigator = navigator;
     }
 
-    public void getContentDetail(int postId) {
+    public void getContentDetail(Integer postId, String slugName) {
         view.onLoading(true);
 
-        Call<DetailPostResponse> call = services.getPost(postId);
+        Call<DetailPostResponse> call;
+
+        if (slugName == null) {
+            call = services.getPost(postId, null);
+        } else {
+            call = services.getPost(null, slugName);
+        }
+
+        if (call == null) {
+            throw new NullPointerException("Invalid service call detail");
+        }
+
         call.enqueue(new Callback<DetailPostResponse>() {
             @Override
             public void onResponse(Response<DetailPostResponse> response, Retrofit retrofit) {
@@ -55,5 +66,9 @@ public class DetailPresenter {
 
     public void share(String url) {
         navigator.shareAction(url);
+    }
+
+    public void navigateToRelatedArticle(String url) {
+        navigator.navigateToDetail(url);
     }
 }

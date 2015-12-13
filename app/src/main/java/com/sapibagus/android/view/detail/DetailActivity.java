@@ -29,6 +29,7 @@ public class DetailActivity extends BaseActivity implements DetailView, Analytic
     public static final String EXTRA_POST_ID = "extra_post_id";
     public static final String EXTRA_CONTENT = "extra_content";
     public static final String EXTRA_URL = "extra_url";
+    public static final String EXTRA_POST_SLUG = "extra_post_slug";
 
     @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.web_view) WebLoadingView webView;
@@ -50,13 +51,19 @@ public class DetailActivity extends BaseActivity implements DetailView, Analytic
 
         presenter.init(this, new DetailNavigator(this));
 
-        if (getIntent().getExtras() == null) {
-            throw new IllegalStateException("Activity start without provide post id");
-        }
-
-        presenter.getContentDetail(getIntent().getExtras().getInt(EXTRA_POST_ID));
+        handleIntent();
 
         webView.setListener(this);
+    }
+
+    private void handleIntent() {
+        if (getIntent().getExtras().containsKey(EXTRA_POST_ID)) {
+            presenter.getContentDetail(getIntent().getExtras().getInt(EXTRA_POST_ID), null);
+        } else if (getIntent().getExtras().containsKey(EXTRA_POST_SLUG)) {
+            presenter.getContentDetail(null, getIntent().getExtras().getString(EXTRA_POST_SLUG));
+        } else {
+            throw new IllegalStateException("Activity start without provide post id or slug name");
+        }
     }
 
     @Override
@@ -66,8 +73,9 @@ public class DetailActivity extends BaseActivity implements DetailView, Analytic
         if (getSupportActionBar() == null) return;
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("Home");
     }
 
     @Override
@@ -134,5 +142,12 @@ public class DetailActivity extends BaseActivity implements DetailView, Analytic
 
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         startActivity(intent);
+    }
+
+    @Override
+    public void openRelatedArticle(String title, String url) {
+        trackEvent("Detail/" + title, "Open Related", url);
+
+        presenter.navigateToRelatedArticle(url);
     }
 }

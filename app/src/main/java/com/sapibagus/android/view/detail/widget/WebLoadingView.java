@@ -2,6 +2,7 @@ package com.sapibagus.android.view.detail.widget;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.util.Xml;
 import android.view.LayoutInflater;
@@ -97,7 +98,14 @@ public class WebLoadingView extends FrameLayout {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                listener.openLinkInsideContent(title, url);
+                Uri uri = Uri.parse(url);
+
+                if (uri.getHost().equals("www.sapibagus.com")) {
+                    listener.openRelatedArticle(title, url);
+                }
+                else {
+                    listener.openLinkInsideContent(title, url);
+                }
                 return true;
             }
         });
@@ -105,5 +113,7 @@ public class WebLoadingView extends FrameLayout {
 
     public interface Listener {
         void openLinkInsideContent(String title, String url);
+
+        void openRelatedArticle(String title, String url);
     }
 }

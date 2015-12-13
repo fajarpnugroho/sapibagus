@@ -64,8 +64,9 @@ public class PageActivity extends BaseActivity implements PageView, AnalyticTrac
         if (getSupportActionBar() == null) return;
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("Home");
     }
 
     @Override

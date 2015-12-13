@@ -9,5 +9,5 @@ import retrofit.http.Query;
 public interface DetailServices {
 
     @GET("api/get_post")
-    Call<DetailPostResponse> getPost(@Query("post_id") int postId);
+    Call<DetailPostResponse> getPost(@Query("post_id") Integer postId, @Query("slug") String slug);
 }
