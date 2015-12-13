@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_before"
+        android:icon="@drawable/ic_navigate_before_white_24dp"
+        android:title="@string/menu_before"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_next"
+        android:icon="@drawable/ic_navigate_next_white_24dp"
+        android:title="@string/menu_next"
+        app:showAsAction="always" />
+
     <item
         android:id="@+id/action_share"
         android:icon="@drawable/ic_share_white_24dp"

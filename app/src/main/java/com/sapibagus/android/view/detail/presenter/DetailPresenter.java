@@ -1,5 +1,7 @@
 package com.sapibagus.android.view.detail.presenter;
 
+import android.view.Menu;
+
 import com.sapibagus.android.api.model.response.DetailPostResponse;
 import com.sapibagus.android.api.service.DetailServices;
 import com.sapibagus.android.view.detail.DetailView;
@@ -16,6 +18,7 @@ public class DetailPresenter {
     private final DetailServices services;
     private DetailView view;
     private DetailNavigator navigator;
+    private DetailPostResponse detailPostResponse;
 
     @Inject
     public DetailPresenter(DetailServices services) {
@@ -70,5 +73,23 @@ public class DetailPresenter {
 
     public void navigateToRelatedArticle(String url) {
         navigator.navigateToDetail(url);
+    }
+
+    public void openPreviousUrl() {
+        if (detailPostResponse == null) {
+            return;
+        }
+        navigator.navigateToDetail(detailPostResponse.previousUrl);
+    }
+
+    public void openNextUrl() {
+        if (detailPostResponse == null) {
+            return;
+        }
+        navigator.navigateToDetail(detailPostResponse.nextUrl);
+    }
+
+    public void setDetailPostResponse(DetailPostResponse detailPostResponse) {
+        this.detailPostResponse = detailPostResponse;
     }
 }

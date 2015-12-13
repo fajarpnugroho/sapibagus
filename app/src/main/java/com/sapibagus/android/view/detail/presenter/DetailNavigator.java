@@ -26,6 +26,7 @@ public class DetailNavigator {
 
         Intent intent = new Intent(activity, DetailActivity.class);
         intent.putExtra(DetailActivity.EXTRA_POST_SLUG, uri.getPathSegments().get(3));
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra(DetailActivity.EXTRA_URL, url);
 
         activity.startActivity(intent);

@@ -37,6 +37,8 @@ public class DetailActivity extends BaseActivity implements DetailView, Analytic
     @Inject DetailPresenter presenter;
     @Inject AnalyticManager analyticManager;
 
+    private boolean hasNextUrl = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,10 +87,27 @@ public class DetailActivity extends BaseActivity implements DetailView, Analytic
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (!hasNextUrl) {
+            MenuItem itemBefore = menu.findItem(R.id.action_before);
+            itemBefore.setVisible(false);
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
+                break;
+            case R.id.action_next:
+                // TODO open previous url
+                presenter.openPreviousUrl();
+                break;
+            case R.id.action_before:
+                // TODO open next url
+                presenter.openNextUrl();
                 break;
             case R.id.action_share:
                 if (getIntent().getExtras() == null) {
@@ -108,6 +127,13 @@ public class DetailActivity extends BaseActivity implements DetailView, Analytic
     @Override
     public void showListPost(DetailPostResponse detailPostResponse) {
         trackScreen("Detail/" + detailPostResponse.post.titlePlain);
+
+        presenter.setDetailPostResponse(detailPostResponse);
+
+        if (detailPostResponse.nextUrl != null) {
+            hasNextUrl = true;
+            invalidateOptionsMenu();
+        }
 
         webView.bind(detailPostResponse.post.titlePlain, detailPostResponse.post.content);
     }
@@ -147,7 +173,6 @@ public class DetailActivity extends BaseActivity implements DetailView, Analytic
     @Override
     public void openRelatedArticle(String title, String url) {
         trackEvent("Detail/" + title, "Open Related", url);
-
         presenter.navigateToRelatedArticle(url);
     }
 }
