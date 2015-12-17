@@ -46,6 +46,29 @@ public class MainActivity extends BaseActivity implements MainView, AnalyticTrac
 
     private CategoriesResponse categoriesResponse;
 
+    private View.OnClickListener fabPelatihanClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            trackEvent("FAB", "Open Pelatihan", "Pelatihan");
+
+            presenter.openPage(getString(R.string.slug_page_pelatihan));
+
+            fabMenu.collapse();
+        }
+    };
+
+    private View.OnClickListener fabMitraClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            presenter.openPage(getString(R.string.slug_page_mitra_binaan));
+
+            trackEvent("FAB", "Open Mitra", "Mitra");
+
+            fabMenu.collapse();
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,37 +148,22 @@ public class MainActivity extends BaseActivity implements MainView, AnalyticTrac
 
     @Override
     public void initFAB() {
-        FloatingActionButton fabPelatihan = new FloatingActionButton(this);
-        fabPelatihan.setTitle("Pelatihan");
-        fabPelatihan.setSize(FloatingActionButton.SIZE_MINI);
-        fabPelatihan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        fabMenu.addButton(generateFAB(fabPelatihanClickListener, "Pelatihan",
+                R.drawable.ic_local_library_white_24dp));
+        fabMenu.addButton(generateFAB(fabMitraClickListener, "Mitra",
+                R.drawable.ic_business_center_white_24dp));
+    }
 
-                trackEvent("FAB", "Open Pelatihan", "Pelatihan");
-
-                presenter.openPage(getString(R.string.slug_page_pelatihan));
-
-                fabMenu.collapse();
-            }
-        });
-
-        FloatingActionButton fabMitra = new FloatingActionButton(this);
-        fabMitra.setTitle("Mitra");
-        fabMitra.setSize(FloatingActionButton.SIZE_MINI);
-        fabMitra.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.openPage(getString(R.string.slug_page_mitra_binaan));
-
-                trackEvent("FAB", "Open Mitra", "Mitra");
-
-                fabMenu.collapse();
-            }
-        });
-
-        fabMenu.addButton(fabPelatihan);
-        fabMenu.addButton(fabMitra);
+    private FloatingActionButton generateFAB(View.OnClickListener clickListener,
+                                             String title, int icon) {
+        FloatingActionButton fab = new FloatingActionButton(this);
+        fab.setTitle(title);
+        fab.setSize(FloatingActionButton.SIZE_MINI);
+        fab.setOnClickListener(clickListener);
+        fab.setColorNormal(R.color.floating_action_button);
+        fab.setColorPressed(R.color.floating_action_button_press);
+        fab.setIcon(icon);
+        return fab;
     }
 
     @Override

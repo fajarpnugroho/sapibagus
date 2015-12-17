@@ -6,4 +6,6 @@
     <color name="grey">#c1c1c1</color>
     <color name="black_light">#333333</color>
     <color name="black_semi_transparent">#B2000000</color>
+    <color name="floating_action_button">#795548</color>
+    <color name="floating_action_button_press">#4E2415</color>
 </resources>
