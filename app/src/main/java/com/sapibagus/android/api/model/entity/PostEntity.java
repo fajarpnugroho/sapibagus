@@ -20,12 +20,13 @@ public final class PostEntity {
     public final List<AttachmentEntity> attachments;
     public final int commentCount;
     public final String commentStatus;
+    public final ThumbnailImages thumbnailImages;
 
     public PostEntity(long id, String type, String slug, String url, String status, String title,
                       String titlePlain, String content, String excerpt, String date,
                       String modified, List<CategoryEntity> categories, List<TagEntity> tags,
                       AuthorEntity author, List<AttachmentEntity> attachments, int commentCount,
-                      String commentStatus) {
+                      String commentStatus, ThumbnailImages thumbnailImages) {
         this.id = id;
         this.type = type;
         this.slug = slug;
@@ -43,5 +44,6 @@ public final class PostEntity {
         this.attachments = attachments;
         this.commentCount = commentCount;
         this.commentStatus = commentStatus;
+        this.thumbnailImages = thumbnailImages;
     }
 }

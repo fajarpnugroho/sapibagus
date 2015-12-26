@@ -105,19 +105,12 @@ public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         public void bind(final PostEntity postEntity) {
             title.setText(postEntity.titlePlain);
 
-            AttachmentEntity attachmentEntity = ImageUtils
-                    .getImageAttachment(postEntity.attachments);
-
-            if (attachmentEntity != null) {
-                thumbnail.setVisibility(View.VISIBLE);
-                Picasso.with(itemView.getContext())
-                        .load(attachmentEntity.url)
-                        .fit()
-                        .centerCrop()
-                        .into(thumbnail);
-            } else {
-                thumbnail.setVisibility(View.GONE);
-            }
+            thumbnail.setVisibility(View.VISIBLE);
+            Picasso.with(itemView.getContext())
+                    .load(postEntity.thumbnailImages.medium.url)
+                    .fit()
+                    .centerCrop()
+                    .into(thumbnail);
 
             authorDateView.bind(postEntity);
             tagsView.bind(postEntity.tags);
