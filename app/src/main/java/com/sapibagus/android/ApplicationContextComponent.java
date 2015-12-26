@@ -2,6 +2,7 @@ package com.sapibagus.android;
 
 import com.sapibagus.android.view.detail.DetailActivity;
 import com.sapibagus.android.view.home.MainActivity;
+import com.sapibagus.android.view.home.fragment.PageFragment;
 import com.sapibagus.android.view.home.fragment.PostsFragment;
 import com.sapibagus.android.view.page.PageActivity;
 
@@ -19,4 +20,6 @@ public interface ApplicationContextComponent {
     void inject(DetailActivity detailActivity);
 
     void inject(PageActivity pageActivity);
+
+    void inject(PageFragment pageFragment);
 }

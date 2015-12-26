@@ -6,7 +6,9 @@
       "title": "Home",
       "description": "",
       "parent": 0,
-      "post_count": 0
+      "post_count": 0,
+      "category": "menu",
+      "visible": 1
     },
     {
       "id": 0,
@@ -14,7 +16,9 @@
       "title": "Belajar",
       "description": "",
       "parent": 0,
-      "post_count": 0
+      "post_count": 0,
+      "category": "menu",
+      "visible": 1
     },
     {
       "id": 0,
@@ -22,7 +26,39 @@
       "title": "Info",
       "description": "",
       "parent": 0,
-      "post_count": 0
+      "post_count": 0,
+      "category": "menu",
+      "visible": 1
+    },
+    {
+      "id": 0,
+      "slug": "bisnis",
+      "title": "Bisnis",
+      "description": "",
+      "parent": 0,
+      "post_count": 0,
+      "category": "menu",
+      "visible": 1
+    },
+    {
+      "id": 0,
+      "slug": "direktori",
+      "title": "Direktori",
+      "description": "",
+      "parent": 0,
+      "post_count": 0,
+      "category": "menu",
+      "visible": 0
+    },
+    {
+      "id": 0,
+      "slug": "pelatihan",
+      "title": "Pelatihan",
+      "description": "",
+      "parent": 0,
+      "post_count": 0,
+      "category": "page",
+      "visible": 1
     },
     {
       "id": 0,
@@ -30,7 +66,9 @@
       "title": "Event",
       "description": "",
       "parent": 0,
-      "post_count": 0
+      "post_count": 0,
+      "category": "menu",
+      "visible": 1
     }
 
   ]

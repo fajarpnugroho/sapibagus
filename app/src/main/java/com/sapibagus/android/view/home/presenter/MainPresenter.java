@@ -56,7 +56,7 @@ public class MainPresenter {
         }
     }
 
-    public void openPage(String pageName) {
-        navigator.navigateToPage(pageName);
+    public void openPhoneDial() {
+        navigator.navigateToPhoneDial();
     }
 }

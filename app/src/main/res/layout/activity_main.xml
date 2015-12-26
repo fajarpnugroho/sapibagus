@@ -35,7 +35,7 @@
             app:tabGravity="fill"
             app:tabIndicatorColor="?attr/colorAccent"
             app:tabIndicatorHeight="4dp"
-            app:tabMode="fixed"
+            app:tabMode="scrollable"
             app:tabSelectedTextColor="@android:color/white"
             app:tabTextColor="#FFA978" />
 
@@ -43,14 +43,12 @@
 
     <include layout="@layout/content_main" />
 
-    <com.getbase.floatingactionbutton.FloatingActionsMenu
+    <com.getbase.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:fab_labelStyle="@style/menu_labels_style"
-        app:fab_addButtonColorNormal="@color/floating_action_button"
-        app:fab_addButtonColorPressed="@color/floating_action_button_press"/>
+        app:backgroundTint="@color/floating_action_button"/>
 
 </android.support.design.widget.CoordinatorLayout>
