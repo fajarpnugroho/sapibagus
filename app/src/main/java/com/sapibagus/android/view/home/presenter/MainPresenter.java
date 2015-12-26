@@ -59,4 +59,8 @@ public class MainPresenter {
     public void openPhoneDial() {
         navigator.navigateToPhoneDial();
     }
+
+    public void openUrlToko() {
+        navigator.openToko();
+    }
 }

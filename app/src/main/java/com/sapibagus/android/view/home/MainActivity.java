@@ -5,8 +5,11 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.sapibagus.android.Injector;
@@ -38,7 +41,6 @@ public class MainActivity extends BaseActivity implements MainView, AnalyticTrac
     public static final int BISNIS_POSITION = 3;
     public static final int PELATIHAN_POSITION = 4;
     public static final int EVENT_POSITION = 5;
-    public static final int REQUEST_CODE_PHONE_CALL = 2000;
 
     @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.sliding_tabs) TabLayout tabLayout;
@@ -145,12 +147,32 @@ public class MainActivity extends BaseActivity implements MainView, AnalyticTrac
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_toko:
+                presenter.openUrlToko();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void initFAB() {
         fabButton.setIcon(R.drawable.ic_phone_white_24dp);
+        fabButton.setColorNormal(ContextCompat.getColor(this, R.color.floating_action_button));
+        fabButton.setColorPressed(ContextCompat.getColor(this,
+                R.color.floating_action_button_press));
     }
 
     @OnClick(R.id.fab)
     public void onFABClick() {
+        trackEvent("FAB", "Click Phone Dial", "Dial Number");
         presenter.openPhoneDial();
     }
 
