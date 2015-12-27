@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 
 import com.sapibagus.android.R;
+import com.sapibagus.android.view.search.SearchActivity;
 
 public class MainNavigator {
 
@@ -28,6 +29,11 @@ public class MainNavigator {
     public void openToko() {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(TOKO_SAPIBAGUS));
+        activity.startActivity(intent);
+    }
+
+    public void navigateToSearchActivity() {
+        Intent intent = new Intent(activity, SearchActivity.class);
         activity.startActivity(intent);
     }
 }

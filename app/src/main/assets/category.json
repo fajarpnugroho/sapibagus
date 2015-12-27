@@ -2,7 +2,7 @@
   "data" : [
     {
       "id": 0,
-      "slug": "home",
+      "slug": "sajian-utama",
       "title": "Home",
       "description": "",
       "parent": 0,
@@ -23,7 +23,7 @@
     {
       "id": 0,
       "slug": "info-pasar",
-      "title": "Info",
+      "title": "Pasar",
       "description": "",
       "parent": 0,
       "post_count": 0,

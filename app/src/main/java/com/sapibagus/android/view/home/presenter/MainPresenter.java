@@ -63,4 +63,8 @@ public class MainPresenter {
     public void openUrlToko() {
         navigator.openToko();
     }
+
+    public void navigateToSearchActivity() {
+        navigator.navigateToSearchActivity();
+    }
 }

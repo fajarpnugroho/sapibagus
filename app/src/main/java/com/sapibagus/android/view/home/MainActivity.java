@@ -145,7 +145,7 @@ public class MainActivity extends BaseActivity implements MainView, AnalyticTrac
 
     }
 
-    /*@Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return super.onCreateOptionsMenu(menu);
@@ -154,12 +154,12 @@ public class MainActivity extends BaseActivity implements MainView, AnalyticTrac
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_toko:
-                presenter.openUrlToko();
+            case R.id.action_search:
+                presenter.navigateToSearchActivity();
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }*/
+    }
 
     @Override
     public void initFAB() {

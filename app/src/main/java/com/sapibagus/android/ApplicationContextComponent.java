@@ -5,6 +5,7 @@ import com.sapibagus.android.view.home.MainActivity;
 import com.sapibagus.android.view.home.fragment.PageFragment;
 import com.sapibagus.android.view.home.fragment.PostsFragment;
 import com.sapibagus.android.view.page.PageActivity;
+import com.sapibagus.android.view.search.SearchActivity;
 
 import javax.inject.Singleton;
 
@@ -22,4 +23,6 @@ public interface ApplicationContextComponent {
     void inject(PageActivity pageActivity);
 
     void inject(PageFragment pageFragment);
+
+    void inject(SearchActivity searchActivity);
 }
