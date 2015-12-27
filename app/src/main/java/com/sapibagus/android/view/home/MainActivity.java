@@ -1,17 +1,16 @@
 package com.sapibagus.android.view.home;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.sapibagus.android.Injector;
 import com.sapibagus.android.R;
 import com.sapibagus.android.analytic.AnalyticManager;
@@ -146,7 +145,7 @@ public class MainActivity extends BaseActivity implements MainView, AnalyticTrac
 
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return super.onCreateOptionsMenu(menu);
@@ -160,14 +159,11 @@ public class MainActivity extends BaseActivity implements MainView, AnalyticTrac
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     @Override
     public void initFAB() {
-        fabButton.setIcon(R.drawable.ic_phone_white_24dp);
-        fabButton.setColorNormal(ContextCompat.getColor(this, R.color.floating_action_button));
-        fabButton.setColorPressed(ContextCompat.getColor(this,
-                R.color.floating_action_button_press));
+        fabButton.setImageResource(R.drawable.ic_phone_white_24dp);
     }
 
     @OnClick(R.id.fab)
