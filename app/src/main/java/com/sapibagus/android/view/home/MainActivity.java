@@ -163,7 +163,7 @@ public class MainActivity extends BaseActivity implements MainView, AnalyticTrac
 
     @Override
     public void initFAB() {
-        fabButton.setImageResource(R.drawable.ic_phone_white_24dp);
+        fabButton.setImageResource(R.drawable.ic_phone_black_24dp);
     }
 
     @OnClick(R.id.fab)
